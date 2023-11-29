@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Post } from '../models/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -7,5 +6,9 @@ import { Post } from '../models/interface';
 export class PostsService {
 
   constructor() { }
-}
 
+  async recuperaPost() {
+    return await (await fetch('../../assets/db.json')).json();
+    //la funzione asincrona aspetta la fetch CHE ASPETTA la risposta a sua volta
+  }
+}

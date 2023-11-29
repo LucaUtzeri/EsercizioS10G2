@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/models/post';
+import { PostsService } from 'src/app/service/posts.service';
+
 
 @Component({
   selector: 'app-post-non-attivi',
@@ -7,7 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostNonAttiviComponent implements OnInit {
 
-  constructor() { }
+  posts: Post[] = [];
+
+
+  constructor(private postSrv: PostsService) {
+    this.postSrv.recuperaPost().then((posts) => {
+      this.posts = posts;
+      console.log(this.posts);
+
+    })
+  }
 
   ngOnInit(): void {
   }
