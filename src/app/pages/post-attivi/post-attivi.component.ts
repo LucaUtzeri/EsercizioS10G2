@@ -15,9 +15,13 @@ export class PostAttiviComponent implements OnInit {
         this.postSrv.recuperaPost().then((posts) => {
             this.posts = posts;
         })
+
     }
 
     ngOnInit(): void {
+    }
+    updatePost(id: number) {
+        this.postSrv.aggiornaPost({ active: false }, id)
     }
 
 }
