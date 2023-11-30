@@ -2,22 +2,60 @@ import { Injectable } from '@angular/core';
 import { Post } from '../models/post';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostsService {
+  posts: Post[] = [
+    {
+      id: 1,
+      body: 'Sit minim deserunt enim enim nisi. Eiusmod incididunt dolore et ea anim. Non exercitation id voluptate et velit quis anim officia fugiat esse laborum nisi fugiat non.',
+      title: 'POST ATTIVO: Dolor velit sint tempor culpa cupidatat ipsum do ad tempor eiusmod.',
+      active: true,
+      type: 'news',
+    },
+    {
+      id: 2,
+      body: 'Sit minim deserunt enim enim nisi. Eiusmod incididunt dolore et ea anim. Non exercitation id voluptate et velit quis anim officia fugiat esse laborum nisi fugiat non.',
+      title: 'POST ATTIVO: Dolor velit sint tempor culpa cupidatat ipsum do ad tempor eiusmod.',
+      active: true,
+      type: 'education',
+    },
+    {
+      id: 3,
+      body: 'Sit minim deserunt enim enim nisi. Eiusmod incididunt dolore et ea anim. Non exercitation id voluptate et velit quis anim officia fugiat esse laborum nisi fugiat non.',
+      title: 'POST ATTIVO: Dolor velit sint tempor culpa cupidatat ipsum do ad tempor eiusmod.',
+      active: true,
+      type: 'news',
+    },
+    {
+      id: 4,
+      body: 'Sit minim deserunt enim enim nisi. Eiusmod incididunt dolore et ea anim. Non exercitation id voluptate et velit quis anim officia fugiat esse laborum nisi fugiat non.',
+      title: 'POST INATTIVO: Dolor velit sint tempor culpa cupidatat ipsum do ad tempor eiusmod.',
+      active: false,
+      type: 'politic',
+    },
+    {
+      id: 5,
+      body: 'Sit minim deserunt enim enim nisi. Eiusmod incididunt dolore et ea anim. Non exercitation id voluptate et velit quis anim officia fugiat esse laborum nisi fugiat non.',
+      title: 'POST INATTIVO: Dolor velit sint tempor culpa cupidatat ipsum do ad tempor eiusmod.',
+      active: false,
+      type: 'education',
+    },
+  ];
 
   constructor() { }
 
-  async recuperaPost() {
-    return await (await fetch('../../assets/db.json')).json();
-    //la funzione asincrona aspetta la fetch CHE ASPETTA la risposta a sua volta
+  postLocali!: Post[];
+
+  recuperaPosts() {
+    return this.posts;
   }
+
 
   async aggiornaPost(data: Partial<Post>, id: number) {
 
-    (await fetch('../../assets/db.json'), { method: "PUT", body: JSON.stringify(data) })
-
-    this.recuperaPost()
+    this.posts = this.posts.map(post => post.id == id ? { ...post, ...data } : post);
+    return this.posts.find(post => post.id == id) as Post;
   }
 
 }
